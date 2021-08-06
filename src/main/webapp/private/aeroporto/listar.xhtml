@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Manutenção de Aeroportos</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formListagem" prependId="false">
+                <p:growl/>
+                <p:commandButton value="Novo"
+                                 actionListener="#{controleAeroporto.novo()}"
+                                 icon="pi pi-plus"
+                                 update="formEdicao"
+                                 process="@this"
+                                 oncomplete="PF('dlg').show();"/>
+                <p:dataTable value="#{controleAeroporto.dao.listaObjetos}" var="obj"
+                             id="listagem">
+                    <p:column headerText="ID">
+                        <p:outputLabel value="#{obj.id}"/>
+                    </p:column>
+                    <p:column headerText="Nome">
+                        <p:outputLabel value="#{obj.nome}"/>
+                    </p:column>
+                    <p:column headerText="Operação Noturna">
+                        <p:outputLabel value="#{obj.operacaoNoturna ? 'Sim' : 'Não'}"/>
+                    </p:column>
+                    <p:column headerText="Cidade">
+                        <p:outputLabel value="#{obj.cidade.nome}"/>
+                    </p:column>
+                    <p:column headerText="Pais">
+                        <p:outputLabel value="#{obj.cidade.pais}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Ações">
+                        <div align="center">
+                            <p:commandButton actionListener="#{controleAeroporto.alterar(obj.id)}"
+                                             icon="pi pi-pencil"
+                                             title="Editar"
+                                             update="formEdicao"
+                                             process="@this"
+                                             oncomplete="PF('dlg').show();"/>
+                            <p:commandButton actionListener="#{controleAeroporto.excluir(obj.id)}"
+                                             icon="pi pi-trash"
+                                             title="Excluir"
+                                             update="formListagem"
+                                             onclick="if(!confirm('Confirma a exclusão?')) return false"/>
+                        </div>
+                    </p:column>
+                    
+                </p:dataTable>
+                
+            </h:form>
+            
+            <p:dialog header="Edição" widgetVar="dlg" resizable="false" modal="modal" width="50%" height="100%">
+                <h:form id="formEdicao" prependId="false">
+                    <p:growl/>
+                    <div align="center">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="ID"/>
+                            <p:inputText value="#{controleAeroporto.objeto.id}" size="5" readonly="true"/>
+                            <p:outputLabel value="Nome" for="txtNome"/>
+                            <p:inputText id="txtNome" value="#{controleAeroporto.objeto.nome}" size="50" maxlength="50" placeholder="Obrigatório"/>
+                            <p:outputLabel value="Operação Noturna" for="txtOperacao"/>
+                            <p:selectBooleanCheckbox value="#{controleAeroporto.objeto.operacaoNoturna}" id="txtOperacao"/>
+                            
+                            <p:outputLabel value="Cidade" for="selectCidade"/>
+                            <p:selectOneMenu value="#{controleAeroporto.objeto.cidade}"
+                                             id="selectCidade"
+                                             filter="true" filterMatchMode="startsWith">
+                                <f:converter binding="#{converterCidade}"/>
+                                <f:selectItem itemLabel="Selecione um registro" noSelectionOption="true"/>
+                                <f:selectItems value="#{controleAeroporto.daoCidade.listaTodos}"
+                                               var="cid" itemLabel="#{cid.nome}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </div>
+                    
+                    <p:panel>
+                        <div align="center">
+                            <p:commandButton value="Salvar"
+                                      icon="pi pi-save"
+                                      actionListener="#{controleAeroporto.salvar()}"
+                                      update="formEdicao formListagem"
+                                      oncomplete="if(!args.validationFailed){PF('dlg').hide();}"/>
+                        </div>
+                    </p:panel>
+                    
+                </h:form>
+                
+            </p:dialog>
+            
+        </ui:define>
+    </ui:composition>
+</html>
+
+
