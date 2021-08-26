@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Manutenção de Cidades</ui:define>
         <ui:define name="conteudo">
@@ -15,8 +16,50 @@
                                  update="formEdicao"
                                  process="@this"
                                  oncomplete="PF('dlg').show();"/>
+                <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem: "/>
+                        <p:selectOneMenu value="#{controleCidade.dao.ordemAtual}" id="selectCidade" converter="#{controleCidade.dao.converterOrdem}">
+                            <f:selectItems value="#{controleCidade.dao.listaOrdem}" var="ord" itemValue="#{ord.atributo}"/>
+                            <p:ajax update="listagem"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Filtro"/>
+                        <p:inputText value="#{controleCidade.dao.filtro}">
+                            <p:ajax update="listagem" event="blur"/>
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" update="listagem"/>
+                        <p:outputLabel value="Máximo de objetos"/>
+                        <p:selectOneMenu value="#{controleCidade.dao.maximoObjetos}">
+                            <f:selectItem itemLabel="5" itemValue="5"/>
+                            <f:selectItem itemLabel="10" itemValue="10"/>
+                            <f:selectItem itemLabel="20" itemValue="20"/>
+                            <f:selectItem itemLabel="50" itemValue="50"/>
+                            <f:selectItem itemLabel="100" itemValue="100"/>
+                            
+                        </p:selectOneMenu>
+                        <p:commandButton action="#{controleCidade.dao.primeiro()}"
+                                         title="Primeiro"
+                                         icon="pi pi-step-backward"
+                                         update="listagem"/>
+                        <p:commandButton action="#{controleCidade.dao.anterior()}"
+                                         title="Anterior"
+                                         icon="pi pi-chevron-left"
+                                         update="listagem"/>
+                        <p:commandButton action="#{controleCidade.dao.proximo()}"
+                                         title="Proximo"
+                                         icon="pi pi-chevron-right"
+                                         update="listagem"/>
+                        <p:commandButton action="#{controleCidade.dao.ultimo()}"
+                                         title="Ultimo"
+                                         icon="pi pi-step-forward"
+                                         update="listagem"/>
+                    </p:panelGrid>
+                </div>
                 <p:dataTable value="#{controleCidade.dao.listaObjetos}" var="obj"
                              id="listagem">
+                    <f:facet name="footer">
+                        <p:outputLabel value="#{controleCidade.dao.mensagemNavegacao}"/>
+                    </f:facet>
                     <p:column headerText="ID">
                         <p:outputLabel value="#{obj.id}"/>
                     </p:column>
