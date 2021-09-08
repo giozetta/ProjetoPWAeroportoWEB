@@ -16,6 +16,47 @@
                                  update="formEdicao"
                                  process="@this"
                                  oncomplete="PF('dlg').show();"/>
+                 <div align="center">
+                    <p:panelGrid columns="11">
+                        <p:outputLabel value="Ordem: "/>
+                        <p:selectOneMenu value="#{controleAeroporto.dao.ordemAtual}" id="selectOrdem"
+                                         converter="#{controleAeroporto.dao.converterOrdem}">
+                            <f:selectItems value="#{controleAeroporto.dao.listaOrdem}"
+                                           var="ord" itemValue="#{ord.atributo}"/>
+                            <p:ajax update="listagem"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Filtro: "/>
+                        <p:inputText value="#{controleAeroporto.dao.filtro}">
+                            <p:ajax update="listagem" event="blur"/>
+                        </p:inputText>
+                        <p:commandButton value="Filtrar" update="listagem"/>
+                        <p:outputLabel value="Máximo de Objetos: "/>
+                        <p:selectOneMenu value="#{controleAeroporto.dao.maximoObjetos}">
+                            <f:selectItem itemLabel="5" itemValue="5"/>
+                            <f:selectItem itemLabel="10" itemValue="10"/>
+                            <f:selectItem itemLabel="20" itemValue="20"/>
+                            <f:selectItem itemLabel="50" itemValue="50"/>
+                            <f:selectItem itemLabel="100" itemValue="100"/>
+                            <p:ajax update="listagem"/>
+                        </p:selectOneMenu>
+                        <p:commandButton action="#{controleAeroporto.dao.primeiro()}"
+                                         title="Primeiro"
+                                         icon="pi pi-step-backward"
+                                         update="listagem"/>
+                        <p:commandButton action="#{controleAeroporto.dao.anterior()}"
+                                         title="Anterior"
+                                         icon="pi pi-chevron-left"
+                                         update="listagem"/>
+                        <p:commandButton action="#{controleAeroporto.dao.proximo()}"
+                                         title="Proximo"
+                                         icon="pi pi-chevron-right"
+                                         update="listagem"/>
+                        <p:commandButton action="#{controleAeroporto.dao.ultimo()}"
+                                         title="Ultimo"
+                                         icon="pi pi-step-forward"
+                                         update="listagem"/>
+                    </p:panelGrid>
+                </div>                
                 <p:dataTable value="#{controleAeroporto.dao.listaObjetos}" var="obj"
                              id="listagem">
                     <p:column headerText="ID">
@@ -29,9 +70,6 @@
                     </p:column>
                     <p:column headerText="Cidade">
                         <p:outputLabel value="#{obj.cidade.nome}"/>
-                    </p:column>
-                    <p:column headerText="Pais">
-                        <p:outputLabel value="#{obj.cidade.pais}"/>
                     </p:column>
                     
                     <p:column headerText="Ações">
@@ -48,12 +86,9 @@
                                              update="formListagem"
                                              onclick="if(!confirm('Confirma a exclusão?')) return false"/>
                         </div>
-                    </p:column>
-                    
+                    </p:column>             
                 </p:dataTable>
-                
-            </h:form>
-            
+            </h:form>  
             <p:dialog header="Edição" widgetVar="dlg" resizable="false" modal="modal" width="50%" height="100%">
                 <h:form id="formEdicao" prependId="false">
                     <p:growl/>
@@ -61,8 +96,10 @@
                         <p:panelGrid columns="2">
                             <p:outputLabel value="ID"/>
                             <p:inputText value="#{controleAeroporto.objeto.id}" size="5" readonly="true"/>
+                            
                             <p:outputLabel value="Nome" for="txtNome"/>
                             <p:inputText id="txtNome" value="#{controleAeroporto.objeto.nome}" size="50" maxlength="50" placeholder="Obrigatório"/>
+                            
                             <p:outputLabel value="Operação Noturna" for="txtOperacao"/>
                             <p:selectBooleanCheckbox value="#{controleAeroporto.objeto.operacaoNoturna}" id="txtOperacao"/>
                             

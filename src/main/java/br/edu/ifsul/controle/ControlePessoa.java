@@ -8,7 +8,9 @@ package br.edu.ifsul.controle;
 import br.edu.ifsul.dao.PessoaDAO;
 import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.HashMap;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -26,6 +28,11 @@ public class ControlePessoa implements Serializable{
 
     public ControlePessoa(){
         
+    }
+    
+    public void imprimePessoas(){
+        HashMap parametros = new HashMap();
+        UtilRelatorios.imprimeRelatorio("relatorioPessoas", parametros, dao.getListaTodos());
     }
     
     public String listar(){
