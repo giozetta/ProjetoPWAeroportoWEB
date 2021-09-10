@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <p:dialog header="Edição" widgetVar="dlg" resizable="false"
+              modal="modal" width="50%" height="100%">
+        <h:form id="formEdicao" prependId="false">
+            <p:growl id="growl"/>
+            <p:tabView id="tab">
+                <p:tab title="Dados Principais">
+                    <div align="center">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="ID"/>
+                            <p:inputText value="#{controleVoo.objeto.id}"
+                                         size="5" readonly="true"/>
+                            <p:outputLabel value="Tempo estimado" for="txtTempoEstimado"/>
+                            <p:inputText id="txtTempoEstimado"
+                                         value="#{controleVoo.objeto.tempoEstimado}"
+                                         size="10" maxlength="10"
+                                         placeholder="Obrigatório"/>
+                            <p:outputLabel value="Ativo" for="txtAtivo"/>
+                            <p:selectBooleanCheckbox value="#{controleAeroporto.objeto.ativo}" id="txtAtivo"/>                           
+                            <p:outputLabel value="Periodicidade" for="txtPeriodicidade"/>
+                            <p:inputText id="txtPeriodicidade"
+                                         value="#{controleVoo.objeto.periodicidade}"
+                                         size="10" maxlength="10"
+                                         placeholder="Obrigatório"/>
+                        </p:panelGrid>
+                    </div>                    
+                </p:tab>          
+                <p:tab title="Descricao">
+                    <p:textEditor value="#{controleVoo.objeto.descicao}"
+                                  secure="false" height="200"/>
+                </p:tab>  
+                <p:tab title="Aeroportos">
+                    <p:dataTable value="#{controleVoo.objeto.escalas}"
+                                 var="esc" id="listaEscalas">
+                        <f:facet name="header">
+                            <p:panelGrid columns="3">
+                                <p:outputLabel value="Aeroporto"/>
+                                <p:selectOneMenu value="#{controleVoo.aeroporto}"
+                                                 id="selectAeroporto">
+                                    <f:converter binding="#{converterAeroporto}"/>
+                                    <f:selectItem noSelectionOption="true"
+                                                  itemLabel="Selecione um registro"/>
+                                    <f:selectItems value="#{controleVoo.daoAeroporto.listaTodos}"
+                                                   var="p" itemLabel="#{p.nome}"/>                                    
+                                </p:selectOneMenu>
+                                <p:commandButton value="Adicionar" 
+                                                 actionListener="#{controleVoo.adicionarAeroporto()}"
+                                                 update="listaEscalas growl"
+                                                 process="@this selectAeroporto"
+                                                 icon="pi pi-plus"/>
+                            </p:panelGrid>
+                        </f:facet>
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{esc.nome}"/>
+                        </p:column>
+                        <p:column headerText="Operação nortuna">
+                            <p:outputLabel value="#{per.operacaoNorturna ? 'Sim' : 'Não'}"/>
+                        </p:column>  
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton 
+                                    actionListener="#{controleVoo.removerAeroporto(per)}"
+                                    process="@this"
+                                    update="listaEscalas growl" icon="pi pi-trash"
+                                    title="Remover escala"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>                
+                <p:tab title="Voos Agendados">
+                    <p:dataTable value="#{controleVoo.objeto.voosAgendados}"
+                                 var="vooAgendado" rowIndexVar="idxVooAgendado"
+                                 id="listaVoosAgendados">
+                        <f:facet name="header">
+                            <p:commandButton  value="Novo Voo Agendado"
+                                              actionListener="#{controleVoo.novoVooAgendado()}"
+                                              update=":formVooAgendado"
+                                              icon="pi pi-plus"
+                                              process="@this"
+                                              oncomplete="PF('dlgVooAgendado').show();"/>                                              
+                        </f:facet>
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{vooAgendado.id}"/>
+                        </p:column>
+                        <p:column headerText="Aeronave">
+                            <p:outputLabel value="#{vooAgendado.aeronave}"/>
+                        </p:column>  
+                        <p:column headerText="Total de passageiros">
+                            <p:outputLabel value="#{vooAgendado.totalPassageiros}"/>
+                        </p:column>  
+                        <p:column headerText="Data">
+                            <p:outputLabel value="#{vooAgendado.data}">
+                                <f:converter converterId="converterCalendar"/>
+                            </p:outputLabel>
+                        </p:column>                                          
+                        
+                        <p:column headerText="Ações">
+                            <p:commandButton icon="pi pi-pencil"
+                                             actionListener="#{controleVoo.alterarVooAgendado(idxVooAgendado)}"
+                                             process="@this"
+                                             update=":formVooAgendado"
+                                             oncomplete="PF('dlgVooAgendado').show();"/>
+                            <p:commandButton icon="pi pi-trash"
+                                             actionListener="#{controleVoo.removerVooAgendado(idxVooAgendado)}"
+                                             process="@this"
+                                             update="tab:listaVoosAgendados growl"
+                                             onclick="if (!confirm('Confirma a exclusão do voo agendado?'))
+                                                         return false"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>                
+            </p:tabView>
+            <p:panel>
+                <div align="center">
+                    <p:commandButton value="Salvar" icon="pi pi-save"
+                                     actionListener="#{controleVoo.salvar()}"
+                                     update="formEdicao formListagem"
+                                     oncomplete="if(!args.validationFailed){PF('dlg').hide();}"/>
+                </div>
+            </p:panel>
+        </h:form>    
+    </p:dialog>
+    <p:dialog header="Edição de Voos Agendados" widgetVar="dlgVooAgendado" resizable="false"
+              modal="true">
+        <h:form id="formVooAgendado">
+            <p:growl/>
+            <p:panelGrid columns="2">
+                <f:facet name="footer">
+                    <div align="center">
+                        <p:commandButton value="Salvar" icon="pi pi-save"
+                                         actionListener="#{controleVoo.salvarVooAgendado()}"
+                                         update="tab:listaVoosAgendados growl @form"
+                                         process="@form"
+                                         oncomplete="if(!args.validationFailed){PF('dlgVooAgendado').hide();}"/>
+                    </div>
+                </f:facet>
+                <p:outputLabel value="ID"/>
+                <p:inputText value="#{controleVoo.vooAgendado.id}" readonly="true"/>
+                <p:outputLabel value="Aeronave" for="txtAeronave"/>
+                <p:inputText value="#{controleVoo.vooAgendado.aeronave}" id="txtAeronave" placeholder="Obrigatório" size="20" maxlength="20"/>
+                <p:outputLabel value="Total de Passageiros" for="txtTotalPassageiros" />
+                <p:inputText value="#{controleVoo.vooAgendado.totalPassageiros}" id="txtTotalPassageiros"
+                             placeholder="Obrigatório" size="10" maxlength="10"/>
+                <p:outputLabel value="Data" for="txtData"/>
+                <p:calendar id="txtData"
+                            value="#{controleVoo.vooAgendado.data}"
+                            mask="true"
+                            pattern="dd/MM/yyyy" navigator="true"
+                            size="10">
+                    <f:converter converterId="converterCalendar"/>
+                </p:calendar>
+            </p:panelGrid>
+        </h:form>        
+    </p:dialog>
+
+</html>
