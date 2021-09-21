@@ -20,7 +20,7 @@
                                          size="10" maxlength="10"
                                          placeholder="Obrigatório"/>
                             <p:outputLabel value="Ativo" for="txtAtivo"/>
-                            <p:selectBooleanCheckbox value="#{controleAeroporto.objeto.ativo}" id="txtAtivo"/>                           
+                            <p:selectBooleanCheckbox value="#{controleVoo.objeto.ativo}" id="txtAtivo"/>                           
                             <p:outputLabel value="Periodicidade" for="txtPeriodicidade"/>
                             <p:inputText id="txtPeriodicidade"
                                          value="#{controleVoo.objeto.periodicidade}"
@@ -30,10 +30,10 @@
                     </div>                    
                 </p:tab>          
                 <p:tab title="Descricao">
-                    <p:textEditor value="#{controleVoo.objeto.descicao}"
+                    <p:textEditor value="#{controleVoo.objeto.descricao}"
                                   secure="false" height="200"/>
                 </p:tab>  
-                <p:tab title="Aeroportos">
+                <p:tab title="Escalas">
                     <p:dataTable value="#{controleVoo.objeto.escalas}"
                                  var="esc" id="listaEscalas">
                         <f:facet name="header">

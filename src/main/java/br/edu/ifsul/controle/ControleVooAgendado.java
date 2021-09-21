@@ -58,7 +58,7 @@ public class ControleVooAgendado implements Serializable{
     
     public void salvarPassagem(){
         if (getNovaPassagem()){
-            getObjeto().adicionarPassagem(getPassagem());
+            objeto.adicionarPassagem(passagem);
         }
         Util.mensagemInformacao("Passagem adicionada ou atualizada com sucesso");
     }

@@ -73,12 +73,12 @@ public class ControleVoo implements Serializable{
         if(novoVooAgendado){
             objeto.setVooAgendado(vooAgendado);
         }
-        Util.mensagemInformacao("Passagem adicionado ou atualizado com sucesso");
+        Util.mensagemInformacao("Voo agendado adicionado ou atualizado com sucesso");
     }
     
     public void removerVooAgendado(int index){
         objeto.removerVooAgendado(index);
-        Util.mensagemInformacao("Passagem removida com sucesso");
+        Util.mensagemInformacao("Voo agendado removido com sucesso");
     }
     
     public String listar(){
