@@ -23,10 +23,9 @@ public class UsuarioDAO<TIPO>  extends DAOGenerico<Usuario> implements Serializa
         super();
         classePersistente = Usuario.class;
         // definir as ordens possíveis
-        listaOrdem.add(new Ordem("id", "ID", "="));
-        listaOrdem.add(new Ordem("nome", "Nome", "like"));
+        listaOrdem.add(new Ordem("nome_usuario", "Nome Usuario", "like"));
         // difinir a ordem inicial
-        ordemAtual = listaOrdem.get(1);
+        ordemAtual = listaOrdem.get(0);
         // inicializar o conversor das ordens
         converterOrdem = new ConverterOrdem();
         converterOrdem.setListaOrdem(listaOrdem);        
@@ -42,7 +41,7 @@ public class UsuarioDAO<TIPO>  extends DAOGenerico<Usuario> implements Serializa
     }     
     
     public boolean verificaUnicidadeNomeUsuario(String nome) throws Exception {
-        String jpql = "from Usuario where nome = :pNome";
+        String jpql = "from Usuario where nome_usuario = :pNome";
         Query query = em.createQuery(jpql);
         query.setParameter("pNome", nome);
         if (query.getResultList().size() > 0){

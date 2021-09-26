@@ -82,7 +82,8 @@
                                              icon="pi pi-trash"
                                              title="Excluir"
                                              update="formListagem"
-                                             onclick="if(!confirm('Confirma a exclusão?')) return false"/>
+                                             onclick="if(!confirm('Confirma a exclusão?')) return false"
+                                             rendered="#{ifGranted('ADMINISTRADOR')}"/>
                         </div>
                     </p:column>
                     

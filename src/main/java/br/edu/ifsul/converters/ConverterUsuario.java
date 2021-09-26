@@ -42,6 +42,6 @@ public class ConverterUsuario implements Serializable, Converter {
             return null;
         }
         Usuario obj = (Usuario) t;
-        return obj.getNome();
+        return obj.getNome_usuario();
     }
 }

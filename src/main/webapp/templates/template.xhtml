@@ -13,27 +13,46 @@
         <h:form id="formMenu" prependId="false">
             <p:megaMenu>
                 <p:menuitem value="Início" url="#{facesContext.externalContext.requestContextPath}/index.xhtml" icon="pi pi-home"/>
-                <p:submenu label="Cadastros" style="width: 20vw;">
-                    <p:column style="width: 20vw;">
+                <p:submenu label="Cadastros">
+                    <p:column>
                         <p:submenu label="Básicos">
-                            <p:menuitem action="#{controleCidade.listar}" value="Manutenção de cidades" ajax="false" style="width: 19.7vw;"/>
-                            <p:menuitem action="#{controlePessoa.listar}" value="Manutenção de pessoas" ajax="false" style="width: 19.7vw;"/>
-                            <p:menuitem action="#{controleClasse.listar}" value="Manutenção de classes" ajax="false" style="width: 19.7vw;"/>
-                            <p:menuitem action="#{controleAeroporto.listar}" value="Manutenção de aeroportos" ajax="false" style="width: 19.7vw;"/>
+                            <p:menuitem action="#{controleCidade.listar}" value="Manutenção de cidades" ajax="false"/>
+                            <p:menuitem action="#{controlePessoa.listar}" value="Manutenção de pessoas" ajax="false"/>
+                            <p:menuitem action="#{controleClasse.listar}" value="Manutenção de classes" ajax="false"/>
+                            <p:menuitem action="#{controleAeroporto.listar}" value="Manutenção de aeroportos" ajax="false"/>
                         </p:submenu>
                         <p:submenu label="Avançados">
-                            <p:menuitem action="#{controleVooAgendado.listar}" value="Manutenção de voos agendados" ajax="false" style="width: 19.7vw;"/>
-                            <p:menuitem action="#{controleVoo.listar}" value="Manutenção de voos" ajax="false" style="width: 19.7vw;"/>
+                            <p:menuitem action="#{controleVooAgendado.listar}" value="Manutenção de voos agendados" ajax="false"/>
+                            <p:menuitem action="#{controleVoo.listar}" value="Manutenção de voos" ajax="false"/>
                         </p:submenu>
                         <p:submenu label="Gerencia">
-                            <p:menuitem action="#{controleUsuario.listar}" value="Manutenção de usuarios" ajax="false" style="width: 19.7vw;"/>
+                            <p:menuitem action="#{controleUsuario.listar}" value="Manutenção de usuarios" ajax="false"/>
                         </p:submenu>
                     </p:column>
                 </p:submenu>
+
+                <p:submenu label="Usuário #{controleLogin.usuarioAutenticado != null ? 
+                                            controleLogin.usuarioAutenticado.nome : ''}">
+                    <p:column>
+                        <p:submenu label="Efetuar Login" 
+                                   rendered="#{controleLogin.usuarioAutenticado == null}">
+                            <p:menuitem action="#{controleLogin.paginaLogin()}"
+                                        value="Login" icon="pi pi-user"
+                                        ajax="false"/>
+                        </p:submenu> 
+                        <p:submenu label="Efetuar Logout" 
+                                   rendered="#{controleLogin.usuarioAutenticado != null}">
+                            <p:menuitem action="#{controleLogin.efetuarLogout()}"
+                                        value="Logout" icon="pi pi-power-off"
+                                        ajax="false"/>
+                        </p:submenu> 
+                    </p:column>
+                </p:submenu>
+
             </p:megaMenu>
         </h:form>
         <ui:insert name="conteudo">
-            
+
         </ui:insert>
         <ui:include src="ajaxstatus.xhtml"/>
     </h:body>

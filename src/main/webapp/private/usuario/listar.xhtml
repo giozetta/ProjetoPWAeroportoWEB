@@ -19,10 +19,8 @@
                 <div align="center">
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem:"/>
-                        <p:selectOneMenu value="#{controleUsuario.dao.ordemAtual}"
-                                         converter="#{controleUsuario.dao.converterOrdem}">
-                            <f:selectItems value="#{controleUsuario.dao.listaOrdem}"
-                                           var="ord" itemValue="#{ord.atributo}"/>
+                        <p:selectOneMenu value="#{controleUsuario.dao.ordemAtual}" converter="#{controleUsuario.dao.converterOrdem}">
+                            <f:selectItems value="#{controleUsuario.dao.listaOrdem}" var="ord" itemValue="#{ord.atributo}"/>
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Filtro:"/>
@@ -59,22 +57,23 @@
                         <p:outputLabel value="#{controleUsuario.dao.mensagemNavegacao}"/>
                     </f:facet>                  
                     <p:column headerText="Nome de usuário">
-                        <p:outputLabel value="#{obj.nome}"/>
+                        <p:outputLabel value="#{obj.nome_usuario}"/>
                     </p:column>   
                     <p:column headerText="Ações">
                         <div align="center">
-                            <p:commandButton actionListener="#{controleUsuario.alterar(obj.nome)}"
+                            <p:commandButton actionListener="#{controleUsuario.alterar(obj.nome_usuario)}"
                                              icon="pi pi-pencil"
                                              title="Editar"
                                              update="formEdicao"
                                              process="@this"
                                              oncomplete="PF('dlg').show();"/>
-                            <p:commandButton actionListener="#{controleUsuario.excluir(obj.nome)}"
+                            <p:commandButton actionListener="#{controleUsuario.excluir(obj.nome_usuario)}"
                                              icon="pi pi-trash"
                                              update="@form"
                                              process="@this"
                                              onclick="if (!confirm('Confirma a exclusão'))
-                                                         return false"/>
+                                                         return false"
+                                                                 rendered="#{ifGranted('ADMINISTRADOR')}"/>
                         </div>
                     </p:column>
                 </p:dataTable>

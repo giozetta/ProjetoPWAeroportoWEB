@@ -59,10 +59,10 @@ public class ControleUsuario implements Serializable {
     public void verificarUnicidadeNomeUsuario() {
         if (novo) {
             try {
-                if (!dao.verificaUnicidadeNomeUsuario(objeto.getNome())) {
-                    Util.mensagemErro("Nome de usuário '" + objeto.getNome() + "' "
+                if (!dao.verificaUnicidadeNomeUsuario(objeto.getNome_usuario())) {
+                    Util.mensagemErro("Nome de usuário '" + objeto.getNome_usuario()+ "' "
                             + " já existe no banco de dados!");
-                    objeto.setNome(null);
+                    objeto.setNome_usuario(null);
                     // capturar o componente que chamou o método
                     UIComponent comp
                             = UIComponent.getCurrentComponent(FacesContext.getCurrentInstance());
