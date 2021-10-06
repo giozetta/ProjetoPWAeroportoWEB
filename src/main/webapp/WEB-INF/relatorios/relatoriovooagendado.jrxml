@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatoriovooagendado" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89535ef8-573b-4ab6-8604-8f4695d64aa7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dadosVoosAgendados"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="data" class="java.util.Calendar">
+		<fieldDescription><![CDATA[data]]></fieldDescription>
+	</field>
+	<field name="totalPassageiros" class="java.lang.Integer">
+		<fieldDescription><![CDATA[totalPassageiros]]></fieldDescription>
+	</field>
+	<field name="voo" class="br.edu.ifsul.modelo.Voo">
+		<fieldDescription><![CDATA[voo]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="aeronave" class="java.lang.String">
+		<fieldDescription><![CDATA[aeronave]]></fieldDescription>
+	</field>
+	<field name="passagens" class="java.util.List">
+		<fieldDescription><![CDATA[passagens]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="92" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="92" backcolor="#FF2B24" uuid="5eeb7e56-100f-48fb-9f76-1f0ebc1102b0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="2" width="555" height="79" backcolor="#FFFFFF" uuid="ed77e322-2968-467d-a5d8-550fd93e8e8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Voos Agendados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="29" backcolor="#FF9896" uuid="a548047c-1648-4157-be50-ce97ecb26b42"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="30" uuid="ae529296-929e-4877-be61-feece5bd21b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38fe1b36-83d2-4f72-9691-7dab338a510e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="0" width="110" height="30" uuid="b4b1b2a3-9731-4580-9b7a-9683cb9bc03b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4a16bfa-0ae3-442b-989e-637e7b8d52f9"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="0" width="214" height="30" uuid="418d048b-faa8-4c43-bc12-1c27ad1bf936">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08b507dc-ebd3-4499-8f67-9278ac0ad134"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aeronave]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="90" height="30" uuid="bbedd663-eed1-4a00-9947-f2be22615bce">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d3c43d0-94c6-4b23-832b-5523aacc8689"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total passageiros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="0" width="30" height="30" uuid="7aaea25f-506c-4a7b-bb2b-4ce29d40f1d0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b26259a3-efc8-4e9f-93c4-38b305c6394f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Voo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="0" width="80" height="30" uuid="4cec068b-2392-4882-b0c5-f8af4de930b5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e81e7c31-c873-40f0-a0d9-4d5ce1fdbc14"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tempo estimado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="319" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="ContainerHeight" x="0" y="0" width="555" height="129" backcolor="#FFCAC9" uuid="e5286c7c-8858-4560-87a8-fd79d505baf5"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="30" height="30" uuid="310bf5b3-771d-4525-9dbc-12c4b8aa9117">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38fe1b36-83d2-4f72-9691-7dab338a510e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="30" y="0" width="110" height="30" uuid="a32b63f5-4ab8-406b-ae6a-5aada9bb167d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d4a16bfa-0ae3-442b-989e-637e7b8d52f9"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data}.getTime()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="214" height="30" uuid="ec5d473c-2f7a-42c0-95c0-d30b9d4103dc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08b507dc-ebd3-4499-8f67-9278ac0ad134"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aeronave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="90" height="30" uuid="52ad9c74-f9fb-4bb7-bfad-d12e6541e87b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3d3c43d0-94c6-4b23-832b-5523aacc8689"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalPassageiros}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="0" width="30" height="30" uuid="df87e10d-f512-4c63-9f22-6fa42ddef6aa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b26259a3-efc8-4e9f-93c4-38b305c6394f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{voo}.getId()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="0" width="80" height="30" uuid="344bfca9-ff81-4475-b9c2-de495be03fc0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e81e7c31-c873-40f0-a0d9-4d5ce1fdbc14"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{voo}.getTempoEstimado()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="30" width="90" height="30" uuid="fa6c188c-275d-4221-94af-a85ceda501d1"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="10" y="60" width="534" height="30" uuid="69f21c45-e8d8-4d8c-8e30-cebcf144cace">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a83b7ac9-4c55-445c-b2e4-13e92eebcfe8"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle" markup="html"/>
+				<textFieldExpression><![CDATA[$F{voo}.getDescricao()]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="10" y="100" width="534" height="20" uuid="d8ca093a-a9ad-42e5-b607-7c832330e19e"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource((java.util.List<br.edu.ifsul.modelo.Passagem>)$F{passagens})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["subvooagendado.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="127" y="12" width="100" height="30" uuid="5ed3b930-2281-4e36-8b9e-5a90c22570de"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="12" width="100" height="30" uuid="02de0f9d-a703-416c-9a20-e72870512a94"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="327" y="12" width="100" height="30" uuid="4795622a-9490-436d-a81e-29bbce174991"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

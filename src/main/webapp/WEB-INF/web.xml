@@ -5,7 +5,7 @@
         <param-value>Development</param-value>
     </context-param>
     <context-param>
-        <param-name>primefaces.theme</param-name>
+        <param-name>primefaces.THEME</param-name>
         <param-value>saga</param-value>
     </context-param>
     <servlet>
@@ -29,7 +29,7 @@
     <security-constraint>
         <display-name>UserConstraint</display-name>
         <web-resource-collection>
-            <web-resource-name>private</web-resource-name>
+            <web-resource-name>privado</web-resource-name>
             <description/>
             <url-pattern>/private/*</url-pattern>
             <http-method>GET</http-method>
@@ -67,19 +67,19 @@
     <!-- configuração do login com formularios do JSF -->
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>ProjetoPWAeroportoRealm</realm-name>
+        <realm-name>ProjetoPWAeroporto</realm-name>
         <form-login-config>
             <form-login-page>/login.xhtml</form-login-page>
             <form-error-page>/loginerror.xhtml</form-error-page>
         </form-login-config>
-    </login-config> 
+    </login-config>
     <!-- Papéis de segurança -->
     <security-role>
-        <description>Administrador</description> 
+        <description>Administrador</description>
         <role-name>ADMINISTRADOR</role-name>
-    </security-role> 
-    <security-role>
-        <description>Usuario</description> 
-        <role-name>USUARIO</role-name>
     </security-role>
+    <security-role>
+        <description>Usuario</description>
+        <role-name>USUARIO</role-name>
+    </security-role>    
 </web-app>

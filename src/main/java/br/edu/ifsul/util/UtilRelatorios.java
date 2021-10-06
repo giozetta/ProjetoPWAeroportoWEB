@@ -22,7 +22,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class UtilRelatorios {
 
-    public static void imprimeRelatorio(String relatorioNome, HashMap parametros, List lista) {
+     public static void imprimeRelatorio(String relatorioNome, HashMap parametros, List lista) {
         try {
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lista);
             FacesContext facesContext = FacesContext.getCurrentInstance();

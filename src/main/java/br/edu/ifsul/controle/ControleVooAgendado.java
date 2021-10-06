@@ -15,7 +15,11 @@ import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.modelo.Voo;
 import br.edu.ifsul.modelo.VooAgendado;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -44,6 +48,18 @@ public class ControleVooAgendado implements Serializable{
 
     public ControleVooAgendado(){
         
+    }
+    
+    public void imprimirVoosAgendados(Object id){
+        try{
+            objeto = dao.localize(id);
+            HashMap parametros = new HashMap();
+            List<VooAgendado> lista = new ArrayList<>();
+            lista.add(objeto);
+            UtilRelatorios.imprimeRelatorio("relatoriovooagendado", parametros, lista);
+        }catch(Exception e){
+            Util.mensagemErro("Erro ao imprimir: " + Util.getMensagemErro(e));
+        }
     }
     
     public void novaPassagem(){

@@ -8,6 +8,7 @@ package br.edu.ifsul.dao;
 import br.edu.ifsul.converters.ConverterOrdem;
 import br.edu.ifsul.modelo.VooAgendado;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.Stateful;
 
 /**

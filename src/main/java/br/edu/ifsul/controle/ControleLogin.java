@@ -42,6 +42,7 @@ public class ControleLogin implements Serializable{
                     FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.login(usuario, senha);
             if (request.getUserPrincipal() != null){
+                System.out.println("Usuario: " + usuario + " senha: " + senha);
                 usuarioAutenticado = 
                         dao.localize(request.getUserPrincipal().getName());
                 Util.mensagemInformacao("Login realizado com sucesso!");
